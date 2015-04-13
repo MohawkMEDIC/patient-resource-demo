@@ -1,0 +1,60 @@
+﻿@model Health.Models.SearchViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<style>
+    label
+    {
+        font-size: larger;
+        color: #C00000;
+    }
+</style>
+
+        <section id="loginForm">
+            @using (Html.BeginForm("Search", "Patient", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <br/>
+        <form class="form-horizontal" id="searchPatient">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <label for="medicAlertID">Medic Alert Member ID</label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="form-control" name="Identifier" id="MedicAlertID" placeholder="Enter Medic Alert Member ID">
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-xs-12">
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter First Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Enter Last Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <button type="submit" id="getRecord" class="btn btn-default homePageButton">Get Record</button>
+                    <button type="submit" id="callMedicAlert" class="btn btn-default homePageButton">Call Medic Alert</button>
+                </div>
+            </div>
+        </form>
+            }
+        </section>

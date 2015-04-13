@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Health.Models.SearchViewModel>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<style>
+
+
+    img
+    {
+        width: 40%;
+        float: left;
+        margin-right: 5px;
+        max-width: 215px;
+        min-width: 120px;
+    }
+</style>
+<br/>
+<div class="container-fluid">
+    <h4>Verify Patient</h4>
+
+    @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-default pull-right" })
+</div>
+
+    @foreach (var item in Model)
+    {
+        <div class="container-fluid records">
+            <a href='@Url.Action("Index", "Patient", new { ID = item.Identifier })'>
+                <div class="imageRecord">
+                    <img src="~/Content/Image/billgates.jpg" class="img-rounded">
+                </div>
+                <div class="recordName">
+                    @Html.DisplayFor(modelItem => item.LastName), @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.MiddleName)
+
+
+                </div>
+                <div class="recordInfo">
+                    @Html.DisplayFor(modelItem => item.Identifier)<br />
+                    @Html.DisplayFor(modelItem => item.Gender) <br />
+                    @Html.DisplayFor(modelItem => item.BirthDate) <br />
+                    @Html.DisplayFor(modelItem => item.Line) <br />
+                    @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State) <br />
+                </div>
+            </a>
+        </div>
+
+    }
+    
+        

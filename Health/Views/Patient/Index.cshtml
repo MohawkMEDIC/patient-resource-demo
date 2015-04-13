@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Health.Models.SearchViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+<head>
+    <title>
+        Patient Information
+    </title>
+</head>
+<body>
+    <style>
+        .col-xs-4
+        {
+            padding: 0;
+        }
+        h4
+        {
+            float: none;
+        }
+        .profileInfo
+        {
+            font-size: 2em;
+        }
+
+</style>
+
+@foreach (var item in Model)
+{
+    <div class="container-fluid profileInfo">
+
+            <img src="~/Content/Image/billgates.jpg" class="img-circle">
+
+            <h4>@Html.DisplayFor(modelItem => item.Identifier)</h4>
+        @Html.DisplayFor(modelItem => item.LastName), @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.MiddleName)<br/>
+        @Html.DisplayFor(modelItem => item.BirthDate)<br/>
+        @Html.DisplayFor(modelItem => item.Gender)
+    </div>
+    <br/>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                @Html.ActionLink("Conditions", "MedicalHistory", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "medicalConditionsButton" })
+            </div>
+            <div class="col-xs-4 col-md-2">
+                @Html.ActionLink("Medications", "Medications", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "medicationsButton" })
+            </div>
+            <div class="col-xs-4 col-md-2">
+                @Html.ActionLink("Allergies", "Allergies", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "allergiesButton" })
+            </div>
+
+            <div class="col-xs-4 col-md-2">
+                @Html.ActionLink("Devices", "Devices", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "devicesButton" })
+            </div>
+            <div class="col-xs-4 col-md-2">
+                @Html.ActionLink("Special Needs", "SpecialNeeds", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "specialNeedsButton" })
+            </div>
+            <div class="col-xs-4 col-md-2">
+                @Html.ActionLink("Contact Info", "ContactInfo", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "callMedicAlert" })
+            </div>
+        </div>
+        </div>
+
+
+
+
+
+
+    }
+</body>

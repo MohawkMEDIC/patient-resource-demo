@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Health.Models.SearchViewModel>
+@{
+    ViewBag.Title = "ContactInfo";
+}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+
+<h2>ContactInfo</h2>
+
+@Html.DisplayFor(modelItem => item.Line)<br />
+@Html.DisplayFor(modelItem => item.City)<br />
+@Html.DisplayFor(modelItem => item.State)<br />
+@Html.DisplayFor(modelItem => item.Country)<br />
+<div class="col-sm-9">
+    @Html.DisplayFor(modelItem => item.Telephone)
+</div>
+<div class="col-sm-9">
+    @Html.DisplayFor(modelItem => item.Email)
+</div>
+@Html.DisplayFor(modelItem => item.MaritalStatus)

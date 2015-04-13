@@ -1,0 +1,323 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.navbar-inverse {
+    background-color: #C00000;
+}
+
+.navbar {
+    background-color: #C00000;
+}
+
+.navbar-header {
+    background-color: #C00000;
+}
+
+form {
+    margin: 0 auto;
+    width: 90%;
+}
+
+.records:nth-child(odd) {
+    background-color: lightgray;
+}
+
+.recordTitle {
+    font-size: medium;
+    color: #C00000;
+    font-weight: bold;
+}
+
+.recordName {
+    color: #C00000;
+    font-weight: bold;
+}
+
+.recordInfo {
+    color: black;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+#getRecord {
+    background-image: url(../Content/Image/icons001_02.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    margin-right: 25px;
+}
+
+    #getRecord:hover {
+        background-image: url(../Content/Image/whiteGetRecord.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        padding-top: 135px;
+        margin-right: 25px;
+        background-color: #C00000;
+        color: white;
+    }
+
+#callMedicAlert:hover {
+    background-image: url(../Content/Image/whiteCall.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+
+#getRecord:active {
+    background-image: url(../Content/Image/whiteGetRecord.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    margin-right: 25px;
+    background-color: #C00000;
+    color: white;
+    border: none;
+}
+
+#callMedicAlert:active {
+    background-image: url(../Content/Image/whiteCall.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+    border: none;
+}
+
+#callMedicAlert {
+    background-image: url(../Content/Image/icons001_08.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+}
+
+.homePageButton {
+    display: inline-block;
+    height: 160px;
+    width: 125px;
+    white-space: normal;
+}
+
+.records {
+    margin: 5px;
+}
+
+div a {
+    text-decoration: none;
+}
+
+div a:hover {
+    text-decoration: none;
+
+}
+
+div a:active {
+    text-decoration: none;
+}
+
+.profileButton {
+    display: inline-block;
+    height: 160px;
+    width: 100%;
+    max-width: 135px;
+    white-space: normal;
+    margin: 0px;
+}
+
+
+#specialNeedsButton {
+    background-image: url(../Content/Image/specialNeedsRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+}
+#specialNeedsButton:active {
+    background-image: url(../Content/Image/specialNeedsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+#specialNeedsButton:hover {
+    background-image: url(../Content/Image/specialNeedsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+
+#medicalConditionsButton {
+    background-image: url(../Content/Image/MedicalConditionsRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+}
+#medicalConditionsButton:hover {
+    background-image: url(../Content/Image/MedicalConditionsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+        background-color: #C00000;
+    color: white;
+}
+#medicalConditionsButton:active {
+    background-image: url(../Content/Image/MedicalConditionsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+        background-color: #C00000;
+    color: white;
+}
+
+#medicationsButton {
+    background-image: url(../Content/Image/MedicationsRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+}
+#medicationsButton:hover {
+    background-image: url(../Content/Image/MedicationsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+#medicationsButton:active {
+    background-image: url(../Content/Image/MedicationsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+
+#devicesButton {
+    background-image: url(../Content/Image/devicesRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+}
+#devicesButton:hover {
+    background-image: url(../Content/Image/devicesWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+#devicesButton:active {
+    background-image: url(../Content/Image/devicesWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+
+
+#allergiesButton {
+    background-image: url(../Content/Image/AllergiesRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+}
+
+#allergiesButton:hover {
+    background-image: url(../Content/Image/AllergiesWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+#allergiesButton:active {
+    background-image: url(../Content/Image/AllergiesWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding-top: 135px;
+    background-color: #C00000;
+    color: white;
+}
+
+    h4, h3
+    {
+        color: #C00000;
+        float: left;
+        font-weight: bold;
+    }
+            img {
+            width: 40%;
+            float: left;
+            margin-right: 5px;
+            max-width: 215px;
+            min-width: 120px;
+        }
