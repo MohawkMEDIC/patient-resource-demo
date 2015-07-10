@@ -186,7 +186,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Image\devicesRed.png" />
     <Content Include="Content\Image\devicesWhite.png" />
-    <Content Include="Content\Image\fhirLogo.png" />
     <Content Include="Content\Image\genderFemale.png" />
     <Content Include="Content\Image\genderMale.png" />
     <Content Include="Content\Image\genderUnknown.png" />
