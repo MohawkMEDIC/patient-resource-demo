@@ -1,13 +1,7 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -42,15 +36,15 @@ input[type="checkbox"].input-validation-error {
 }
 
 .navbar-inverse {
-    background-color: #C00000;
+    background-color: #FF0033;
 }
 
 .navbar {
-    background-color: #C00000;
+    background-color: #FF0033;
 }
 
 .navbar-header {
-    background-color: #C00000;
+    background-color: #FF0033;
 }
 
 form {
@@ -62,90 +56,110 @@ form {
     background-color: lightgray;
 }
 
+.records
+{
+    margin: 2px;
+    height: 107px;
+    padding: 10px;
+    border-radius: 55px 10px 10px 55px;
+    -moz-border-radius: 55px 10px 10px 55px;
+    -webkit-border-radius: 55px 10px 10px 55px;
+    border: 0px solid #000000;
+    background: #C00000;
+    background-image: -webkit-linear-gradient(top, #FF0033, #990000);
+    background-image: -moz-linear-gradient(top, #FF0033, #990000);
+    background-image: -ms-linear-gradient(top, #FF0033, #990000);
+    background-image: -o-linear-gradient(top, #FF0033, #990000);
+    background-image: linear-gradient(to bottom, #FF0033, #990000);
+}
+
 .recordTitle {
     font-size: medium;
-    color: #C00000;
+    color: #FF0033;
     font-weight: bold;
 }
 
 .recordName {
-    color: #C00000;
+    color: #B0AEAE;
     font-weight: bold;
 }
 
 .recordInfo {
-    color: black;
+    color: white;
+    font-size: 0.9em;
 }
 
 .container-fluid {
     padding: 0;
 }
+.container .profileContent
+{
+    position: fixed;
+}
 
 #getRecord {
-    background-image: url(../Content/Image/icons001_02.png);
+    background-image: url(../Content/Image/getRecordRed.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
+    background-size: 80px 80px;
+    padding-top: 120px;
     margin-right: 25px;
 }
 
-    #getRecord:hover {
-        background-image: url(../Content/Image/whiteGetRecord.png);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        padding-top: 135px;
-        margin-right: 25px;
-        background-color: #C00000;
-        color: white;
-    }
-
-#callMedicAlert:hover {
-    background-image: url(../Content/Image/whiteCall.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
-    color: white;
-}
-
-#getRecord:active {
+#getRecord:active, #getRecord:hover {
     background-image: url(../Content/Image/whiteGetRecord.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
+    background-size: 80px 80px;
+    padding-top: 120px;
     margin-right: 25px;
-    background-color: #C00000;
+    background-color: #FF0033;
     color: white;
     border: none;
 }
 
-#callMedicAlert:active {
+#callEmergency:active, #callEmergency:hover {
     background-image: url(../Content/Image/whiteCall.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
+    background-size: 80px 80px;
+    padding-top: 120px;
+    background-color: #FF0033;
     color: white;
     border: none;
 }
 
-#callMedicAlert {
-    background-image: url(../Content/Image/icons001_08.png);
+#callEmergency {
+    background-image: url(../Content/Image/redCall.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
+    background-size: 80px 80px;
+    padding-top: 120px;
+}
+
+#emergencyContactButton:active, #emergencyContactButton:hover {
+    background-image: url(../Content/Image/whiteCall.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80px 80px;
+    padding-top: 120px;
+    background-color: #FF0033;
+    color: white;
+    border: none;
+}
+
+#emergencyContactButton {
+    background-image: url(../Content/Image/redCall.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80px 80px;
+    padding-top: 120px;
 }
 
 .homePageButton {
     display: inline-block;
     height: 160px;
-    width: 125px;
+    width: 115px;
     white-space: normal;
 }
 
@@ -153,16 +167,7 @@ form {
     margin: 5px;
 }
 
-div a {
-    text-decoration: none;
-}
-
-div a:hover {
-    text-decoration: none;
-
-}
-
-div a:active {
+div a, div a:hover, div a:active {
     text-decoration: none;
 }
 
@@ -172,33 +177,28 @@ div a:active {
     width: 100%;
     max-width: 135px;
     white-space: normal;
-    margin: 0px;
 }
 
+.btn
+{
+    border-radius: 0px;
+
+}
 
 #specialNeedsButton {
-    background-image: url(../Content/Image/specialNeedsRed.png);
+     background-image: url(../Content/Image/specialNeedsRed.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
+    background-size: 80px 80px;
+    padding-top: 120px;
 }
-#specialNeedsButton:active {
+#specialNeedsButton:hover, #specialNeedsButton:active {
     background-image: url(../Content/Image/specialNeedsWhite.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
-    color: white;
-}
-#specialNeedsButton:hover {
-    background-image: url(../Content/Image/specialNeedsWhite.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
+    background-size: 80px 80px;
+    padding-top: 120px;
+    background-color: #FF0033;
     color: white;
 }
 
@@ -206,25 +206,16 @@ div a:active {
     background-image: url(../Content/Image/MedicalConditionsRed.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
+    background-size: 80px 80px;
+    padding-top: 120px;
 }
-#medicalConditionsButton:hover {
+#medicalConditionsButton:active, #medicalConditionsButton:hover {
     background-image: url(../Content/Image/MedicalConditionsWhite.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-        background-color: #C00000;
-    color: white;
-}
-#medicalConditionsButton:active {
-    background-image: url(../Content/Image/MedicalConditionsWhite.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-        background-color: #C00000;
+    background-size: 80px 80px;
+    padding-top: 120px;
+        background-color: #FF0033;
     color: white;
 }
 
@@ -232,25 +223,16 @@ div a:active {
     background-image: url(../Content/Image/MedicationsRed.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
+    background-size: 80px 80px;
+    padding-top: 120px;
 }
-#medicationsButton:hover {
+#medicationsButton:active, #medicationsButton:hover {
     background-image: url(../Content/Image/MedicationsWhite.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
-    color: white;
-}
-#medicationsButton:active {
-    background-image: url(../Content/Image/MedicationsWhite.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
+    background-size: 80px 80px;
+    padding-top: 120px;
+    background-color: #FF0033;
     color: white;
 }
 
@@ -258,66 +240,385 @@ div a:active {
     background-image: url(../Content/Image/devicesRed.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
+    background-size: 80px 80px;
+    padding-top: 120px;
 }
-#devicesButton:hover {
-    background-image: url(../Content/Image/devicesWhite.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
-    color: white;
-}
-#devicesButton:active {
-    background-image: url(../Content/Image/devicesWhite.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
-    color: white;
-}
+    #devicesButton:active, #devicesButton:hover {
+        background-image: url(../Content/Image/devicesWhite.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 80px 80px;
+        padding-top: 120px;
+        background-color: #FF0033;
+        color: white;
+    }
 
 
 #allergiesButton {
-    background-image: url(../Content/Image/AllergiesRed.png);
+    background-image: url(../Content/Image/peanutRed.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-    padding-top: 135px;
+    background-size: 80px 80px;
+    padding-top: 120px;
 }
 
-#allergiesButton:hover {
-    background-image: url(../Content/Image/AllergiesWhite.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
-    color: white;
-}
-#allergiesButton:active {
-    background-image: url(../Content/Image/AllergiesWhite.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    padding-top: 135px;
-    background-color: #C00000;
-    color: white;
-}
-
-    h4, h3
-    {
-        color: #C00000;
-        float: left;
-        font-weight: bold;
+    #allergiesButton:hover, #allergiesButton:active {
+        background-image: url(../Content/Image/peanutWhite.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 80px 80px;
+        padding-top: 120px;
+        background-color: #FF0033;
+        color: white;
     }
-            img {
-            width: 40%;
-            float: left;
-            margin-right: 5px;
-            max-width: 215px;
-            min-width: 120px;
+
+
+h4, h3 {
+    color: #FF0033;
+    float: left;
+    font-weight: bold;
+}
+
+.headerName {
+    background-color: #FF0033;
+    height: 50px;
+    color: white;
+    -webkit-box-shadow: 10px 0px 10px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow: 10px 0px 10px 2px rgba(0,0,0,0.5);
+    box-shadow: 10px 0px 10px 2px rgba(0,0,0,0.5);
+    padding-left: 3%;
+    width: 65%;
+    float: left;
+
+}
+
+.headerImage {
+    background-color: #FF0033;
+    border-radius: 0px 0px 50% 0px;
+    padding: 10px;
+    width: 35%;
+    float: left;
+    max-width: 235px;
+    -webkit-box-shadow: 2px 0px 10px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow: 2px 0px 10px 2px rgba(0,0,0,0.5);
+    box-shadow: 2px 0px 10px 2px rgba(0,0,0,0.5);
+
+
+}
+        .genderIcon
+        {
+            float: right;
+            height: 40px;
+            width: 30px;
+            padding-top: 10px;
+            margin-left: 10px;
+        }
+        .name
+        {
+            font-weight: bold;
+        }
+.profileContent {
+      z-index: 10;
+  position: fixed;
+  background-color: white;
+
+  padding-left: 120px;
+  padding-top: 10px;
+}
+.panel-default > .panel-heading {
+    color: white;
+    background-color: #FF0033;
+    border-color: #FF0033;
+      padding: 5px 15px;
+}
+
+.panel-title {
+    font-weight: bold;
+}
+
+.content {
+    margin-top: 100px;
+    height: 100%;
+}
+
+.panel {
+    border-color: #FF0033;
+    -webkit-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.5);
+
+}
+
+#specialNeedsButtonBar {
+    background-image: url(../Content/Image/specialNeedsRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#specialNeedsButtonBar:active, #specialNeedsButtonBar:hover {
+    background-image: url(../Content/Image/specialNeedsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #FF0033;
+    background-size: contain;
+}
+#medicalConditionsButtonBar {
+    background-image: url(../Content/Image/MedicalConditionsRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#medicalConditionsButtonBar:hover, #medicalConditionsButtonBar:active {
+    background-image: url(../Content/Image/MedicalConditionsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: #FF0033;
+}
+#medicationsButtonBar {
+    background-image: url(../Content/Image/MedicationsRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#medicationsButtonBar:hover, #medicationsButtonBar:active {
+    background-image: url(../Content/Image/MedicationsWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: #FF0033;
+}
+#devicesButtonBar {
+    background-image: url(../Content/Image/devicesRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#devicesButtonBar:hover, #devicesButtonBar:active {
+    background-image: url(../Content/Image/devicesWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: #FF0033;
+}
+#allergiesButtonBar {
+    background-image: url(../Content/Image/peanutRed.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#allergiesButtonBar:hover, #allergiesButtonBar:active {
+    background-image: url(../Content/Image/peanutWhite.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: #FF0033;
+}
+#callMedicAlertBar:active, #callMedicAlertBar:hover {
+    background-image: url(../Content/Image/whiteCall.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: #FF0033;
+}
+
+#callMedicAlertBar {
+    background-image: url(../Content/Image/redCall.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.pageButtonBar {
+    height: 75px;
+    width: 100%;
+    white-space: normal;
+}
+
+.col-xs-2 {
+    padding: 0px;
+}
+
+.bottomButtons {
+    bottom: 0;
+    position: fixed;
+    width: 92%;
+    margin-top: 50px;
+}
+
+.submitButtons {
+    position: fixed;
+    top: 375px;
+    margin-left: 7%;
+        margin-right: 7%;
+        z-index: 1000;
+}
+
+.buttons {
+    bottom: 0;
+    position: fixed;
+    margin-right: 15px;
+}
+
+.notificationInfo {
+    background-color: #FF0033;
+    border: 1px solid black;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: x-small;
+    padding: 2px 5px 2px 5px;
+}
+
+div .notificationInfo {
+    top: 5px;
+    right: 5px;
+    position: absolute;
+}
+
+.headerImageC {
+    width: 100%;
+    float: left;
+    margin-right: 5px;
+    max-width: 215px;
+    min-width: 90px;
+    max-height: 106px;
+    border: 7px solid #fff;
+    -webkit-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 8px 2px rgba(0,0,0,0.5);
+}
+
+.medicationList {
+    border-bottom: 1px solid #FF0033;
+}
+
+.bottomContent {
+    margin-bottom: 100px;
+}
+
+.brand {
+    color: white;
+    font-size: x-small;
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+}
+
+.brandPersonal {
+    font-size: x-small;
+    float: right;
+    margin-top: 5px;
+    padding-right: 1px;
+}
+
+.homePageLink {
+    padding: 5px;
+}
+        .engravings
+        {
+            text-align: center;
+    border: solid 1px #FF0033;
+    box-shadow: 0px 0px 7px 2px #888888;
+    margin-top: 70px;
+    background: #C00000;
+    background-image: -webkit-linear-gradient(top, #FF0033, #990000);
+    background-image: -moz-linear-gradient(top, #FF0033, #990000);
+    background-image: -ms-linear-gradient(top, #FF0033, #990000);
+    background-image: -o-linear-gradient(top, #FF0033, #990000);
+    background-image: linear-gradient(to bottom, #FF0033, #990000);
+    -webkit-border-radius: 6;
+    -moz-border-radius: 6;
+    border-radius: 6px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+        }
+
+        .engravings:hover, engravings:active {
+    background: #ff3636;
+    background-image: -webkit-linear-gradient(top, #ff3636, #FF0033);
+    background-image: -moz-linear-gradient(top, #ff3636, #FF0033);
+    background-image: -ms-linear-gradient(top, #ff3636, #FF0033);
+    background-image: -o-linear-gradient(top, #ff3636, #FF0033);
+    background-image: linear-gradient(to bottom, #ff3636, #FF0033);
+    text-decoration: none;
+}
+
+        div .fade-in {
+    -webkit-animation: fadeIn 0.7s;
+    -moz-animation: fadeIn 0.7s;
+    animation: fadeIn 0.7s;
+    position: relative;
+}
+
+@-webkit-keyframes fadeIn {
+    0% { opacity: 0; }
+    100%   { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+   0% { opacity: 0; }
+    100%   { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100%   { opacity: 1; }
+}
+
+div .fade-out {
+    -webkit-animation: fadeOut 7s;
+    -moz-animation: fadeOut 7s;
+    animation: fadeOut 7s;
+    position: relative;
+}
+
+@-webkit-keyframes fadeOut {
+    0% { opacity: 0; }
+         50% { opacity: 1; }
+    100%   { opacity: 0; }
+}
+
+@-moz-keyframes fadeOut {
+   0% { opacity: 0; }
+   50% { opacity: 1; }
+    100%   { opacity: 0; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100%   { opacity: 0; }
+}
+
+.check-in {
+    -webkit-animation: slideBounce 0.7s;
+    -moz-animation: slideBounce 0.7s;
+    animation: slideBounce 0.7s;
+    position: relative;
+}
+@-webkit-keyframes slideBounce {
+    0% { transform:translateX(-1000%); }
+    5% { transform:translateX(-1000%); }
+    100%   { transform:translateX(0); }
+}
+@-moz-keyframes slideBounce {
+    0% { transform:translateX(-1000%); }
+    5% { transform:translateX(-1000%); }
+    100%   { transform:translateX(0); }
+}
+@keyframes slideBounce {
+    0% { transform:translateX(-1000%); }
+    5% { transform:translateX(-1000%); }
+    100%   { transform:translateX(0); }
+}
+        .logoImage
+        {
+            float: right;
+            height: 30px;
+            margin-top: 15px;
+            width: 170px;
         }

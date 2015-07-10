@@ -14,30 +14,23 @@
  * the License.
  * 
  * User: oskamt
- * Date: 26-3-2015
+ * Date: 5-6-2015
  */
 
-using Hl7.Fhir.Model;
-using Hl7.Fhir.Rest;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
-namespace Health.Controllers
+namespace Health.Models
 {
-    public class HomeController : Controller
+    public class AllergyViewModel
     {
-        public ActionResult Index(string error)
-        {
-            ViewBag.Message = "Home page description.";
-            ViewData["error"] = error;
-       //     createPatient();
+        [Display(Name = "Allergy Name")]
+        public string AllergyName { get; set; }
 
-            return View();
-        }
-
-      
+        [Display(Name = "Severity")]
+        public string Severity { get; set; }
     }
 }

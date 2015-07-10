@@ -4,11 +4,185 @@
 }
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="~/Content/Site.css">
 
-<h2>SpecialNeeds</h2>
-@Html.DisplayFor(modelItem => item.Alert)
+<link rel="stylesheet" href="~/Content/newbootstrap.min.css">
+<script src="~/Content/jquery.min.js"></script>
+<script src="~/Content/newbootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+<link rel="stylesheet" type="text/css" media="screen" href="~/Content/MobileStyles.css">
+
+
+<head>
+    <title>
+
+    </title>
+    <script type="text/javascript">
+        $("document").ready(function () {
+            if ($(window).width() <= 350) {
+                $("#allergiesButtonBar").click(function () {
+
+                    $(".content").hide();
+                    $(".bottomContent").hide();
+
+                });
+                $("#medicationsButtonBar").click(function () {
+
+                    $(".content").hide();
+                    $(".bottomContent").hide();
+
+                });
+                $("#medicalConditionsButtonBar").click(function () {
+
+                    $(".content").hide();
+                    $(".bottomContent").hide();
+
+                });
+                $("#devicesButtonBar").click(function () {
+
+                    $$(".content").hide();
+                    $(".bottomContent").hide();
+
+                });
+                $("#specialNeedsButtonBar").click(function () {
+
+                    $(".content").hide();
+                    $(".bottomContent").hide();
+
+                });
+                $("#emergencyContactButtonBar").click(function () {
+
+                    $(".content").hide();
+                    $(".bottomContent").hide();
+
+                });
+                $(".headerImage").click(function () {
+
+                    $(".content").hide();
+                    $(".bottomContent").hide();
+
+                });
+            }
+    });
+    </script>
+</head>
+<body>
+<style>
+    h5
+        {
+            float: none;
+            margin: 0px;
+            color: white;
+            padding-top: 10px;
+            font-weight: bold;
+        }
+    h4 {
+            float: none;
+            margin: 0px;
+            color: white;
+            padding-top: 10px;
+            text-align: center;
+        }
+</style>
+@foreach (var item in Model)
+{
+    <div class="container-fluid navbar-fixed-top header">
+        <div class="headerImage">
+            <a href='@Url.Action("Index", "Patient", new { ID = item.Identifier })'>
+                @if (item.Photo != null)
+                {
+                    <img src="@String.Format("data:image/png;base64,{0}", item.Photo)" class="headerImageC img-circle">
+                }
+                else
+                {
+                    <img src="~/Content/Image/Maureen_1.jpeg" class="headerImageC img-circle">
+                }
+            </a>
+        </div>
+        <div class="headerName">
+            <img src="~/Content/Image/fhirLogo.png" class="logoImage">
+        </div>
+    </div>
+
+    <div class="container profileContent fade-in">
+
+        <span class="name">@Html.DisplayFor(modelItem => item.LastName), @Html.DisplayFor(modelItem => item.FirstName)</span><br/>
+        @if (item.Gender == "M")
+        {
+            <span>
+                <img class="genderIcon" src="~/Content/Image/genderMale.png" />
+            </span>
+        }
+        else if (item.Gender == "F")
+        {
+            <span>
+                <img class="genderIcon" src="~/Content/Image/genderFemale.png" />
+            </span>
+        }
+        else
+        {
+            <span>
+                <img class="genderIcon" src="~/Content/Image/genderUnknown.png" />
+            </span>
+        }
+        <span>@Html.DisplayFor(modelItem => item.BirthDate), @Html.DisplayFor(modelItem => item.Age)<br /></span>
+
+        <span>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</span>
+
+    </div>
+
+    <div class="panel panel-default content fade-in">
+        <div class="panel-heading">
+            <h5 class="panel-title">Special Needs</h5>
+        </div>
+        <div class="panel-body">
+            @foreach (var specialNeed in item.SpecialNeeds)
+            {
+                 @Html.DisplayFor(modelItem => specialNeed.SpecialNeed)<br />
+            }
+        </div>
+    </div>
+    
+    <div class="panel panel-default bottomContent fade-in">
+        <div class="panel-heading">
+            <h5 class="panel-title">Demographic</h5>
+        </div>
+        <div class="panel-body">
+            @Html.DisplayFor(modelItem => item.Identifier)<br/>
+            @Html.DisplayFor(modelItem => item.Line)<br/>
+            @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)<br />
+            @foreach (var contactInfo in item.ContactInfo)
+            {
+                @Html.DisplayFor(modelItem => contactInfo)<br />
+            }
+        </div>
+    </div>
+
+    
+
+    <div class="container-fluid bottomButtons">
+        <div class="row fade-in">
+            <div class="col-xs-2 text-center">
+                @Html.ActionLink(" ", "MedicalHistory", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default pageButtonBar", id = "medicalConditionsButtonBar" })
+            </div>
+            <div class="col-xs-2 text-center">
+                @Html.ActionLink(" ", "Medications", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default pageButtonBar", id = "medicationsButtonBar" })
+            </div>
+            <div class="col-xs-2 text-center">
+                @Html.ActionLink(" ", "Allergies", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default pageButtonBar", id = "allergiesButtonBar" })
+            </div>
+
+            <div class="col-xs-2 text-center">
+                @Html.ActionLink(" ", "Devices", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default pageButtonBar", id = "devicesButtonBar" })
+            </div>
+            <div class="col-xs-2 text-center">
+                @Html.ActionLink(" ", "SpecialNeeds", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default pageButtonBar", id = "specialNeedsButtonBar" })
+            </div>
+            <div class="col-xs-2 text-center">
+                @Html.ActionLink(" ", "ContactInfo", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default pageButtonBar", id = "callMedicAlertBar" })
+            </div>
+        </div>
+    </div>
+}
+</body>
+
 

@@ -1,4 +1,23 @@
-﻿using Health.Models;
+﻿/**
+ * Copyright 2015-2015 Mohawk College of Applied Arts and Technology
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you 
+ * may not use this file except in compliance with the License. You may 
+ * obtain a copy of the License at 
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0 
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the 
+ * License for the specific language governing permissions and limitations under 
+ * the License.
+ * 
+ * User: oskamt
+ * Date: 26-3-2015
+ */
+
+using Health.Models;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using System;
@@ -18,81 +37,46 @@ namespace Health.Controllers
         {
             try
             {
-                var client = new FhirClient("http://cr.marc-hi.ca:8080/fhir");
-                var client2 = new FhirClient("https://fhir.orionhealth.com/blaze/fhir");
-
-                ViewData["ID"] = ID;
                 SearchViewModel m = new SearchViewModel();
 
-                //searches for alerts
-                Bundle resultsAlerts = client2.Search<Alert>(new string[] { "subject=" });
+                var client = new FhirClient("http://fhirtest.uhn.ca/baseDstu1");
 
-                //gets alerts
-                foreach (var entry in resultsAlerts.Entries)
-                {
-                    ResourceEntry<Alert> alerts = (ResourceEntry<Alert>)entry;
-                    m.Alert = alerts.Resource.Note;
-                    break;
-                }
-
-                //search patients based on ID clicked
-                Bundle resultsPatients = client.Search<Patient>(new string[] { "identifier=" + ID });
-
+                //search patients based on patientID clicked
+                Bundle resultsPatients = client.Search<Patient>(new string[] { "_id=" + ID});
 
                 //gets patient based on ID
                 foreach (var entry in resultsPatients.Entries)
                 {
-                    // since we are searching for a Patient resource, the entries represent patients (needs casting to the resource patient)
-                    ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
 
-                    // get the first values only for now, we will need to use a more sophisticated way to grab values
-                    m.LastName = patient.Resource.Name.First<HumanName>().FamilyElement.First<FhirString>().Value;
-                    m.MiddleName = patient.Resource.Name.First<HumanName>().GivenElement.ElementAt(1).Value;
-                    m.FirstName = patient.Resource.Name.First<HumanName>().GivenElement.First<FhirString>().Value;
-                    m.Identifier = patient.Resource.Identifier.First<Identifier>().Value;
-                    m.Gender = patient.Resource.Gender.TextElement.Value;
+                        ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
 
-                    var dateOfBirth = patient.Resource.BirthDateElement.Value;
-                    DateTime dob = Convert.ToDateTime(dateOfBirth);
-                    DateTime now = DateTime.Now;
-                    var age = (int)(now.Year - dob.Year);
-                    if (dob.Month > now.Month)
-                    {
-                        age--;
-                    }
-
-                    
-                    m.BirthDate = age + " years old";
-
-
-                    //m.Line = patient.Resource.Address.First<Address>().LineElement.First<FhirString>().Value;
-                    //m.City = patient.Resource.Address.First<Address>().CityElement.Value;
-                    //m.State = patient.Resource.Address.First<Address>().StateElement.Value;
-                    //m.Country = patient.Resource.Address.First<Address>().CountryElement.Value;
-                    //m.Telephone = patient.Resource.Telecom.First<Contact>().Value;
-                    //m.Email = patient.Resource.Telecom.ElementAt(1).Value;
-
-                    //try
-                    //{
-                    //    m.MaritalStatus = patient.Resource.MaritalStatus.TextElement.Value;
-                    //}
-                    //catch
-                    //{
-                    //    m.MaritalStatus = "N/A";
-                    //}
-
-                    //try
-                    //{
-                    //    m.CareProvider = patient.Resource.CareProvider.First<ResourceReference>().ReferenceElement.Value;
-                    //}
-                    //catch
-                    //{
-                    //    m.CareProvider = "N/A";
-                    //}
-                    
-
-                    patients.Add(m);
+                        m = getPatientInfo(patient);
+                     
                 }
+
+            Bundle resultsAllergies = client.Search<AllergyIntolerance>(new string[] { "subject=" + ID});
+            foreach (var entry in resultsAllergies.Entries)
+            {
+                m.AllergiesCount++;
+            }
+            Bundle resultsMedications = client.Search<MedicationPrescription>(new string[] { "patient._id=" + ID});
+            foreach (var entry in resultsMedications.Entries)
+            {
+                m.MedicationCount++;
+            }
+            Bundle resultsConditions = client.Search<Condition>(new string[] { "subject=" + ID});
+            foreach (var entry in resultsConditions.Entries)
+            {
+                m.ConditionsCount++;
+            }
+            Bundle resultsDevices = client.Search<Device>(new string[] { "patient._id=" + ID });
+            foreach (var entry in resultsDevices.Entries)
+            {
+                m.DevicesCount++;
+            }
+
+
+                patients.Add(m);
 
                 return View(patients);
             }
@@ -106,80 +90,231 @@ namespace Health.Controllers
 
         public ActionResult Allergies(string ID)
         {
-            var client = new FhirClient("http://cr.marc-hi.ca:8080/fhir");
-            var client2 = new FhirClient("https://fhir.orionhealth.com/blaze/fhir");
-
             SearchViewModel m = new SearchViewModel();
+            List<AllergyViewModel> allergyList = new List<AllergyViewModel>();
 
-            Bundle resultsPatients = client.Search<Patient>(new string[] { "identifier=" + ID });
+            var client = new FhirClient("http://fhirtest.uhn.ca/baseDstu1");
 
-
-                //gets patient based on ID
+            //get patient basic info
+            Bundle resultsPatients = client.Search<Patient>(new string[] { "_id=" + ID });
             foreach (var entry in resultsPatients.Entries)
             {
-                // since we are searching for a Patient resource, the entries represent patients (needs casting to the resource patient)
                 ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
 
-                // get the first values only for now, we will need to use a more sophisticated way to grab values
-                m.LastName = patient.Resource.Name.First<HumanName>().FamilyElement.First<FhirString>().Value;
-                m.FirstName = patient.Resource.Name.First<HumanName>().GivenElement.First<FhirString>().Value;
-                m.Identifier = patient.Resource.Identifier.First<Identifier>().Value;
+                m = getPatientInfo(patient);
             }
 
-            //searches for allergies
-            Bundle resultsAllergy = client2.Search<AllergyIntolerance>(new string[] { "subject=" });
-
-            //gets allergy and reaction to substance
-            foreach (var entry in resultsAllergy.Entries)
+            //get patient allergy information
+            Bundle resultsAllergies = client.Search<AllergyIntolerance>(new string[] { "subject=" + ID });
+            foreach (var entry in resultsAllergies.Entries)
             {
+                AllergyViewModel allergies = new AllergyViewModel();
                 ResourceEntry<AllergyIntolerance> allergy = (ResourceEntry<AllergyIntolerance>)entry;
-                m.Allergy = allergy.Resource.Substance.DisplayElement.Value;
-                m.AllergyReaction = allergy.Resource.Criticality_Element.Value.ToString();
-                break;
+                allergies.AllergyName = allergy.Resource.Substance.DisplayElement.Value;
+
+                    if (allergy.Resource.Reaction != null)
+                    {
+                        allergies.Severity = allergy.Resource.Reaction.FirstOrDefault<ResourceReference>().Display;
+                    }
+                    else
+                    {
+                        allergies.Severity = "Unknown Sensitivity to";
+                    }
+                    m.AllergiesCount++;
+
+                    allergyList.Add(allergies);
+
             }
+            m.Allergies = allergyList;
+
             patients.Add(m);
+
             return View(patients);
         }
 
         public ActionResult Medications(string ID)
         {
-            var client = new FhirClient("http://cr.marc-hi.ca:8080/fhir");
-            var client2 = new FhirClient("https://fhir.orionhealth.com/blaze/fhir");
-
             SearchViewModel m = new SearchViewModel();
+            List<MedicationViewModel> medicationList = new List<MedicationViewModel>();
 
-            Bundle resultsPatients = client.Search<Patient>(new string[] { "identifier=" + ID });
+            var client = new FhirClient("http://fhirtest.uhn.ca/baseDstu1");
 
+            //search patients based on patientID clicked
+            Bundle resultsPatients = client.Search<Patient>(new string[] { "_id=" + ID});
+            
 
             //gets patient based on ID
             foreach (var entry in resultsPatients.Entries)
             {
-                // since we are searching for a Patient resource, the entries represent patients (needs casting to the resource patient)
-                ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
+                    ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
 
-                // get the first values only for now, we will need to use a more sophisticated way to grab values
-                m.LastName = patient.Resource.Name.First<HumanName>().FamilyElement.First<FhirString>().Value;
-                m.FirstName = patient.Resource.Name.First<HumanName>().GivenElement.First<FhirString>().Value;
-                m.Identifier = patient.Resource.Identifier.First<Identifier>().Value;
+                    m = getPatientInfo(patient);
             }
 
-
-            //gets meds
-            Bundle resultsMedications = client2.Search<Medication>(new string[] { "code=" });
-            Bundle resultsMedicationsAdmin = client2.Search<MedicationAdministration>(new string[] { "prescription=" });
+            Bundle resultsMedications = client.Search<MedicationPrescription>(new string[] { "patient._id=" + ID });
             foreach (var entry in resultsMedications.Entries)
             {
-                ResourceEntry<Medication> meds = (ResourceEntry<Medication>)entry;
-                m.Medications = meds.Resource.Name;
-                break;
+                m.MedicationCount++;
+                MedicationViewModel meds = new MedicationViewModel();
+                ResourceEntry<MedicationPrescription> medication = (ResourceEntry<MedicationPrescription>)entry;
+
+                //get name of medication
+                meds.MedicationName = medication.Resource.Medication.Display;
+
+                //get date medication was prescribed
+                if (medication.Resource.DateWrittenElement == null)
+                {
+                    meds.IsActive = "Unknown";
+                }
+                else
+                {
+                    meds.IsActive = medication.Resource.DateWrittenElement.Value;
+                }
+                medicationList.Add(meds);
+            }             
+
+            m.Medications = medicationList;
+
+            patients.Add(m);
+
+            return View(patients);
+        }
+
+        public ActionResult SpecialNeeds(string ID)
+        {
+            SearchViewModel m = new SearchViewModel();
+            List<AlertViewModel> specialNeedList = new List<AlertViewModel>();
+
+            var client = new FhirClient("http://fhirtest.uhn.ca/baseDstu1");
+
+            //search patients based on patientID clicked
+            Bundle resultsPatients = client.Search<Patient>(new string[] { "_id=" + ID});
+            
+
+            //gets patient based on ID
+            foreach (var entry in resultsPatients.Entries)
+            {
+
+                    ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
+
+                    m = getPatientInfo(patient);
             }
 
-            foreach (var entry in resultsMedicationsAdmin.Entries)
+            Bundle resultsAlerts = client.Search<Alert>(new string[] {"subject=" + ID});
+            foreach (var entry in resultsAlerts.Entries)
             {
-                ResourceEntry<MedicationAdministration> medsA = (ResourceEntry<MedicationAdministration>)entry;
-                m.MedicationsAdmin = medsA.Resource.Dosage.ElementAt(0).Quantity.Value + medsA.Resource.Dosage.ElementAt(0).Quantity.Code;
-                break;
+                if (entry.ToString().Contains("Alert"))
+                {
+                    AlertViewModel alerts = new AlertViewModel();
+                    ResourceEntry<Alert> alert = (ResourceEntry<Alert>)entry;
+
+                    alerts.SpecialNeed = alert.Resource.Note;
+
+                    specialNeedList.Add(alerts);
+                }
+                    
             }
+            m.SpecialNeeds = specialNeedList;
+
+            patients.Add(m);
+
+            return View(patients);
+        }
+
+        public ActionResult ContactInfo(string ID)
+        {
+            SearchViewModel m = new SearchViewModel();
+            List<string> EmergencyContactInformation = new List<string>();
+            List<string> PractitionerContactInformation = new List<string>();
+
+            var client = new FhirClient("http://fhirtest.uhn.ca/baseDstu1");
+
+            //search patients based on patientID clicked
+            Bundle resultsPatients = client.Search<Patient>(new string[] { "_id=" + ID });
+            
+
+            //gets patient based on ID
+            foreach (var entry in resultsPatients.Entries)
+            {
+
+                    ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
+
+                    m = getPatientInfo(patient);
+            
+                if (patient.Resource.Contact != null)
+                {
+                    //get patients contact info
+                    foreach (var contact in patient.Resource.Contact)
+                    {
+                        EmergencyContactInformation.Add(contact.Relationship.FirstOrDefault<CodeableConcept>().Coding.FirstOrDefault<Coding>().Display);
+                        EmergencyContactInformation.Add(contact.Name.TextElement.Value);
+                        if (contact.Telecom != null)
+                        {
+                            foreach (var contactNumber in contact.Telecom)
+                            {
+                                EmergencyContactInformation.Add(contactNumber.Use + ": " + contactNumber.Value);
+                            }
+
+                        }
+                        else
+                        {
+                            EmergencyContactInformation.Add("Unknown Contact Number");
+                        }
+
+                    }
+                    m.EmergencyContact = EmergencyContactInformation;
+                }
+                    
+                if (patient.Resource.CareProvider != null)
+                {
+                    //get patients contact info
+                    foreach (var contact in patient.Resource.CareProvider)
+                    {
+                        PractitionerContactInformation.Add("Dr. " + contact.Display);
+                    }
+                    m.PractitionerContact = PractitionerContactInformation;
+                }
+                   
+                }
+
+            patients.Add(m);
+
+            return View(patients);
+        }
+
+        public ActionResult Devices(string ID)
+        {
+            SearchViewModel m = new SearchViewModel();
+            List<DeviceViewModel> deviceList = new List<DeviceViewModel>();
+
+            var client = new FhirClient("http://fhirtest.uhn.ca/baseDstu1");
+
+            //search patients based on patientID clicked
+            Bundle resultsPatients = client.Search<Patient>(new string[] { "_id=" + ID});
+            
+
+            //gets patient based on ID
+            foreach (var entry in resultsPatients.Entries)
+            {
+
+                    ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
+
+                    m = getPatientInfo(patient);
+            }
+
+            Bundle resultsDevices = client.Search<Device>(new string[] {"patient._id=" + ID});
+            foreach (var entry in resultsDevices.Entries)
+            {
+                    DeviceViewModel devices = new DeviceViewModel();
+                    ResourceEntry<Device> device = (ResourceEntry<Device>)entry;
+                    m.DevicesCount++;
+
+                    devices.DeviceName = device.Resource.Type.TextElement.Value;
+                    deviceList.Add(devices);
+
+            }
+            m.Devices = deviceList;
+
             patients.Add(m);
 
             return View(patients);
@@ -187,54 +322,58 @@ namespace Health.Controllers
 
         public ActionResult MedicalHistory(string ID)
         {
-            var client = new FhirClient("http://cr.marc-hi.ca:8080/fhir");
-            var client2 = new FhirClient("https://fhir.orionhealth.com/blaze/fhir");
-
             SearchViewModel m = new SearchViewModel();
+            List<ConditionViewModel> conditionList = new List<ConditionViewModel>();
 
-            Bundle resultsPatients = client.Search<Patient>(new string[] { "identifier=" + ID });
+            var client = new FhirClient("http://fhirtest.uhn.ca/baseDstu1");
 
+            //search patients based on patientID clicked
+            Bundle resultsPatients = client.Search<Patient>(new string[] { "_id=" + ID });
+            
 
             //gets patient based on ID
             foreach (var entry in resultsPatients.Entries)
             {
-                // since we are searching for a Patient resource, the entries represent patients (needs casting to the resource patient)
-                ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
+                    ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
 
-                // get the first values only for now, we will need to use a more sophisticated way to grab values
-                m.LastName = patient.Resource.Name.First<HumanName>().FamilyElement.First<FhirString>().Value;
-                m.FirstName = patient.Resource.Name.First<HumanName>().GivenElement.First<FhirString>().Value;
-                m.Identifier = patient.Resource.Identifier.First<Identifier>().Value;
+                    m = getPatientInfo(patient);
+                }
 
-            }
+            Bundle resultsConditions = client.Search<Condition>(new string[]{"subject=" + ID});
 
-
-            //gets family history
-            Bundle resultsFamilyHistory = client2.Search<FamilyHistory>(new string[] { "subject=" });
-
-            //gets family history
-            foreach (var entry in resultsFamilyHistory.Entries)
+            foreach (var entry in resultsConditions.Entries)
             {
-                ResourceEntry<FamilyHistory> familyHistoryNotes = (ResourceEntry<FamilyHistory>)entry;
-                m.FamilyHistory = familyHistoryNotes.Resource.Note;
-                break;
-            }
+                 ConditionViewModel conditions = new ConditionViewModel();
+                    ResourceEntry<Condition> condition = (ResourceEntry<Condition>)entry;
+                    if (condition.Resource.Code != null)
+                    {
+                        conditions.ConditionName = condition.Resource.Code.Text;
+                        
+                    }
+                    else
+                    {
+                        conditions.ConditionName = "Unknown";
 
-            //searches for procedures in 1991
-            Bundle resultsProcedure = client2.Search<Procedure>(new string[] { "date=1991" });
+                    }
 
-            //gets first procedure and procedure date
-            foreach (var entry in resultsProcedure.Entries)
-            {
-                ResourceEntry<Procedure> procedure = (ResourceEntry<Procedure>)entry;
-                m.ProcedureDate = procedure.Resource.Date.Start;
-                m.Procedure = procedure.Resource.Type.Coding.ElementAt(0).DisplayElement.Value;
-                break;
+                if (condition.Resource.Onset != null)
+                    {
+                        conditions.Date = (condition.Resource.Onset as Date).Value;
+                    }
+                    else
+                    {
+                        conditions.Date = "Unknown";
+                    }
+                m.ConditionsCount++;
+                conditionList.Add(conditions);
             }
+                   
+            m.Conditions = conditionList;
+
             patients.Add(m);
             return View(patients);
         }
-
+        
         //
         // POST: /Patient/Search
         [HttpPost]
@@ -242,48 +381,51 @@ namespace Health.Controllers
         {
             try
             {
-                var client = new FhirClient("http://cr.marc-hi.ca:8080/fhir");
-
                 // get the user's submitted form values
                 string id = collection.GetValue("Identifier").AttemptedValue;
                 string lastName = collection.GetValue("LastName").AttemptedValue;
                 string firstName = collection.GetValue("FirstName").AttemptedValue;
 
+                List<SearchViewModel> patients = new List<SearchViewModel>();
+
+                var client = new FhirClient("http://fhirtest.uhn.ca/baseDstu1");
+
+                
+
                 // search by values extracted above
-                Bundle results = client.Search<Patient>(new string[] { 
-                    "family=" + lastName, 
-                    "given=" + firstName,
-                    "identifier=" + id
-                });
+                Bundle results;
+                
+
+                if (id.Equals(""))
+                {
+                        results = client.Search<Patient>(new string[] { 
+                        "given=" + firstName,
+                        "family=" + lastName
+                        });
+                }
+                else
+                {
+                        results = client.Search<Patient>(new string[] { 
+                    "_id=" + id
+                    });
+                }
+
+                
 
                 // prepare a list of patient search model object (it will be populated in the entries loop below)
                 // entries loop = patients found
-                List<SearchViewModel> patients = new List<SearchViewModel>();
+                
+
                 foreach (var entry in results.Entries)
                 {
+
                     SearchViewModel m = new SearchViewModel();
 
                     // since we are searching for a Patient resource, the entries represent patients (needs casting to the resource patient)
                     ResourceEntry<Patient> patient = (ResourceEntry<Patient>)entry;
-                    // get the first values only for now, we will need to use a more sophisticated way to grab values
-                    try
-                    {
-                        m.LastName = patient.Resource.Name.First<HumanName>().FamilyElement.First<FhirString>().Value;
-                        m.MiddleName = patient.Resource.Name.First<HumanName>().GivenElement.ElementAt(1).Value;
-                        m.FirstName = patient.Resource.Name.First<HumanName>().GivenElement.First<FhirString>().Value;
-                        m.Identifier = patient.Resource.Identifier.First<Identifier>().Value;
-                        m.Gender = patient.Resource.Gender.TextElement.Value;
-                        m.BirthDate = patient.Resource.BirthDateElement.Value;
-                        m.Line = patient.Resource.Address.First<Address>().LineElement.First<FhirString>().Value;
-                        m.City = patient.Resource.Address.First<Address>().CityElement.Value;
-                        m.State = patient.Resource.Address.First<Address>().StateElement.Value;
-                    }
-                    catch
-                    {
-                        m.LastName = "N/A";
-                        m.FirstName = "N/A";
-                        m.Identifier = "N/A";
-                    }
+
+                    m = getPatientInfo(patient);
+                    
 
                     patients.Add(m);
                 }
@@ -300,8 +442,107 @@ namespace Health.Controllers
             catch
             {
                 // any exception? go back to the search form in the Home page
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new {error = "Member ID does not exist."});
             }
         }
+
+        //gets basic patient information
+        private SearchViewModel getPatientInfo(ResourceEntry<Patient> patient)
+        {
+            SearchViewModel patientInfo = new SearchViewModel();
+
+                        patientInfo.LastName = patient.Resource.Name.FirstOrDefault<HumanName>().FamilyElement.FirstOrDefault<FhirString>().Value;
+                        patientInfo.FirstName = patient.Resource.Name.First<HumanName>().GivenElement.First<FhirString>().Value;
+                        patientInfo.Identifier = patient.Id.Segments.ElementAt(3);
+
+                        //get patient photo if it exists
+                        List<Attachment> photos = patient.Resource.Photo;
+
+                        if (photos != null)
+                        {
+                            Attachment photo = photos.FirstOrDefault();
+                            if (photo != null)
+                            {
+                                if (photo.Data != null)
+                                {
+                                    patientInfo.Photo = Convert.ToBase64String(photo.Data);
+                                }
+                            }
+                        }
+
+                        //get patient gender
+                        if (patient.Resource.Gender == null)
+                        {
+                            patientInfo.Gender = "unknown";
+                        }
+                        else if (patient.Resource.Gender.Text != null)
+                        {
+                            patientInfo.Gender = patient.Resource.Gender.Text;
+                        }
+                        else
+                        {
+                            patientInfo.Gender = patient.Resource.Gender.Coding.FirstOrDefault<Coding>().Code;
+                        }
+
+                        //get birthdate and age
+                        var dateOfBirth = patient.Resource.BirthDateElement.Value;
+                        patientInfo.BirthDate = patient.Resource.BirthDateElement.Value;
+                        DateTime dob = Convert.ToDateTime(dateOfBirth);
+                        DateTime now = DateTime.Now;
+                        var age = (int)(now.Year - dob.Year);
+                        if (dob.Month > now.Month)
+                        {
+                            age--;
+                        }
+                        patientInfo.Age = age + " Years";
+
+                        //get address information, check for address line
+                        if (patient.Resource.Address == null)
+                        {
+                            patientInfo.Line = "N/A";
+                            patientInfo.City = "N/A";
+                            patientInfo.State = "N/A";
+                        }
+                        else
+                        {
+                            if (patient.Resource.Address.FirstOrDefault<Address>().LineElement == null)
+                            {
+                                patientInfo.Line = "N/A";
+                            }
+                            else
+                            {
+                                patientInfo.Line = patient.Resource.Address.FirstOrDefault<Address>().LineElement.First<FhirString>().Value;
+                            }
+
+                            if (patient.Resource.Address.FirstOrDefault<Address>().CityElement == null)
+                            {
+                                patientInfo.City = "N/A";
+                            }
+                            else
+                            {
+                                patientInfo.City = patient.Resource.Address.FirstOrDefault<Address>().CityElement.Value;
+                            }
+
+                            if (patient.Resource.Address.FirstOrDefault<Address>().CountryElement == null)
+                            {
+                                patientInfo.State = "N/A";
+                            }
+                            else
+                            {
+                                patientInfo.State = patient.Resource.Address.FirstOrDefault<Address>().CountryElement.Value;
+                            }
+
+                        }
+                        List<string> ContactInformation = new List<string>();
+            //get patients contact info
+            foreach (var contact in patient.Resource.Telecom)
+            {
+                ContactInformation.Add(contact.Value);
+            }
+            patientInfo.ContactInfo = ContactInformation;
+            return patientInfo;
+        }
+
     }
+
 }

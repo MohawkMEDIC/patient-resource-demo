@@ -5,56 +5,138 @@
 }
 
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi">
+<link rel="stylesheet" href="~/Content/bootstrap.css">
+<link rel="stylesheet" href="~/Content/newbootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="~/Content/MobileStyles.css">
+<script src="~/Content/jquery.min.js"></script>
+<script src="~/Content/newbootstrap.min.js"></script>
+<head>
+    <script type="text/javascript">
+        $("document").ready(function () {
 
-<style>
-    label
-    {
-        font-size: larger;
-        color: #C00000;
-    }
-</style>
+            $("#identifierInfo").delay(10).fadeIn(500);
+            $("#changeInputName").delay(10).fadeIn(500);
+            $(".submitButtons").delay(10).fadeIn(500);
 
-        <section id="loginForm">
-            @using (Html.BeginForm("Search", "Patient", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                <br/>
-        <form class="form-horizontal" id="searchPatient">
-            <div class="form-group">
-                <div class="col-xs-12">
-                    <label for="medicAlertID">Medic Alert Member ID</label>
-                </div>
-                <div class="col-xs-12">
-                    <input type="text" class="form-control" name="Identifier" id="MedicAlertID" placeholder="Enter Medic Alert Member ID">
-                </div>
-            </div>
-            <div class="form-group">
+            $("#changeInputName").click(function () {
 
-                <div class="col-xs-12">
-                    <label for="firstName">First Name</label>
-                </div>
-                <div class="col-xs-12">
-                    <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter First Name">
-                </div>
+                $("#identifierInfo").hide();
+                $("#changeInputName").hide();
+
+                $("#firstNameInfo").fadeIn(500);
+                $("#lastNameInfo").fadeIn(500);
+                $("#changeInputID").fadeIn(500);
+
+            });
+            $("#changeInputID").click(function () {
+
+                $("#changeInputID").hide();
+                $("#firstNameInfo").hide();
+                $("#lastNameInfo").hide();
+
+                $("#identifierInfo").fadeIn(500);
+                $("#changeInputName").fadeIn(500);
+
+            });
+            //fadeout page on click
+            $("#getRecord").click(function () {
+
+                $("#identifierInfo").fadeOut(250);
+                $("#firstNameInfo").fadeOut(250);
+                $("#lastNameInfo").fadeOut(250);
+                $(".submitButtons").fadeOut(250);
+                $("#changeInputName").fadeOut(250);
+                $("#changeInputID").fadeOut(250);
+                $(".errorMsg").fadeOut(250);
+
+            });
+        });
+
+    </script>
+
+    <title>
+        Homepage
+    </title>
+</head>
+
+<body>
+    <style>
+        label {
+            font-size: larger;
+            color: #FF0033;
+        }
+        .errorMsg
+        {
+            padding: 5px;
+            font-weight: bold;
+            color: #FF0033;
+            margin-top: 10px;
+            text-align: center;
+            -webkit-animation-delay: 2s; /* Chrome, Safari, Opera */
+            animation-delay: 2s;
+            opacity: 0;
+        }
+
+    </style>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <img src="~/Content/Image/fhirLogo.png" class="logoImage">
             </div>
-            <div class="form-group">
-                <div class="col-xs-12">
-                    <label for="lastName">Last Name</label>
+        </div>
+    </div>
+    <section id="loginForm">
+        @using (Html.BeginForm("Search", "Patient", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <br />
+            <form class="form-horizontal" id="searchPatient">
+                <div class="form-group" id="identifierInfo" style="display:none;">
+                    <div class="col-xs-12">
+                        <label for="MemberID">Patient Member ID</label>
+                    </div>
+                    <div class="col-xs-12">
+                        <input type="text" class="form-control" name="Identifier" id="MemberID" placeholder="Enter Patient Member ID">
+                    </div>
                 </div>
-                <div class="col-xs-12">
-                    <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Enter Last Name">
+               
+                <a href="#" id="changeInputName" style="display:none;" class="homePageLink">First/Last Name?</a>
+                <div class="form-group" id="firstNameInfo" style="display:none;">
+
+                    <div class="col-xs-12">
+                        <label for="firstName">First Name</label>
+                    </div>
+                    <div class="col-xs-12">
+                        <input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter First Name">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-xs-12">
-                    <button type="submit" id="getRecord" class="btn btn-default homePageButton">Get Record</button>
-                    <button type="submit" id="callMedicAlert" class="btn btn-default homePageButton">Call Medic Alert</button>
+                <div class="form-group" id="lastNameInfo" style="display:none;">
+                    <div class="col-xs-12">
+                        <label for="lastName">Last Name</label>
+                    </div>
+                    <div class="col-xs-12">
+                        <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Enter Last Name">
+                    </div>
                 </div>
-            </div>
-        </form>
-            }
-        </section>
+                <a href="#" id="changeInputID" class="homePageLink" style="display:none;">Member ID?</a>
+
+                @if (@ViewData["error"] != null)
+                {
+                    <div class="errorMsg col-xs-12 fade-out">
+                        @ViewData["error"]
+                    </div>
+                }
+                
+ 
+                <div class="form-group">
+                    <div class="submitButtons" style="display:none;">
+                        <button type="submit" id="getRecord" class="btn btn-default homePageButton">Get Record</button>
+                        <button type="submit" id="callEmergency" class="btn btn-default homePageButton">Call Emergency</button>
+                    </div>
+                </div>
+            </form>
+        }
+    </section>
+</body>

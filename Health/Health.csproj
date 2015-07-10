@@ -172,6 +172,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AlertViewModel.cs" />
+    <Compile Include="Models\AllergyViewModel.cs" />
+    <Compile Include="Models\ConditionViewModel.cs" />
+    <Compile Include="Models\DeviceViewModel.cs" />
+    <Compile Include="Models\MedicationViewModel.cs" />
     <Compile Include="Models\PatientViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -179,30 +184,42 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Image\AllergiesRed.png" />
-    <Content Include="Content\Image\AllergiesWhite.png" />
-    <Content Include="Content\Image\billgates.jpg" />
     <Content Include="Content\Image\devicesRed.png" />
     <Content Include="Content\Image\devicesWhite.png" />
-    <Content Include="Content\Image\fhir-logo-www.png" />
+    <Content Include="Content\Image\fhirLogo.png" />
+    <Content Include="Content\Image\genderFemale.png" />
+    <Content Include="Content\Image\genderMale.png" />
+    <Content Include="Content\Image\genderUnknown.png" />
+    <Content Include="Content\Image\gender_f.png" />
+    <Content Include="Content\Image\gender_m.png" />
+    <Content Include="Content\Image\getRecordRed.png" />
     <Content Include="Content\Image\hello.png" />
-    <Content Include="Content\Image\icons001_02.png" />
-    <Content Include="Content\Image\icons001_08.png" />
+    <Content Include="Content\Image\Maureen_1.jpeg" />
     <Content Include="Content\Image\MedicalConditionsRed.png" />
     <Content Include="Content\Image\MedicalConditionsWhite.png" />
+    <Content Include="Content\Image\medicAlertLogo.png" />
     <Content Include="Content\Image\MedicationsRed.png" />
     <Content Include="Content\Image\MedicationsWhite.png" />
+    <Content Include="Content\Image\patientTest.jpg" />
+    <Content Include="Content\Image\peanutRed.png" />
+    <Content Include="Content\Image\peanutWhite.png" />
+    <Content Include="Content\Image\redCall.png" />
     <Content Include="Content\Image\specialNeedsRed.png" />
     <Content Include="Content\Image\specialNeedsWhite.png" />
     <Content Include="Content\Image\whiteCall.png" />
     <Content Include="Content\Image\whiteGetRecord.png" />
-    <Content Include="Content\Styles.css" />
+    <Content Include="Content\jquery.min.js" />
+    <Content Include="Content\MobileStyles.css" />
+    <Content Include="Content\newbootstrap.min.css" />
+    <Content Include="Content\newbootstrap.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fhirPatientDSTU1.licenseheader" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -215,7 +232,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

@@ -4,11 +4,14 @@
 }
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="~/Content/newbootstrap.min.css">
+<script src="~/Content/jquery.min.js"></script>
+<script src="~/Content/newbootstrap.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
+<link rel="stylesheet" type="text/css" media="screen" href="~/Content/MobileStyles.css">
 <head>
+
     <title>
         Patient Information
     </title>
@@ -17,60 +20,92 @@
     <style>
         .col-xs-4
         {
-            padding: 0;
+            padding:0;
         }
-        h4
-        {
-            float: none;
-        }
-        .profileInfo
-        {
-            font-size: 2em;
-        }
-
+        
 </style>
-
 @foreach (var item in Model)
 {
-    <div class="container-fluid profileInfo">
+    <div class="container-fluid navbar-fixed-top header">
+            <div class="headerImage">
+                @if (item.Photo != null)
+                {
+                    <img src="@String.Format("data:image/png;base64,{0}", item.Photo)" class="headerImageC img-circle">
+                }
+                else
+                {
+                    <img src="~/Content/Image/Maureen_1.jpeg" class="headerImageC img-circle">
+                }  
+            </div>
+            <div class="headerName">
+                <img src="~/Content/Image/fhirLogo.png" class="logoImage">
+            </div>
+    </div>
 
-            <img src="~/Content/Image/billgates.jpg" class="img-circle">
+    <div class="container profileContent fade-in">
+        
+            <span class="name">@Html.DisplayFor(modelItem => item.LastName), @Html.DisplayFor(modelItem => item.FirstName)</span><br/>
+        @if (item.Gender == "M")
+        {
+            <span>
+                <img class="genderIcon" src="~/Content/Image/genderMale.png" />
+            </span>
+        }
+        else if (item.Gender == "F")
+        {
+            <span>
+                <img class="genderIcon" src="~/Content/Image/genderFemale.png" />
+            </span>
+        }
+        else
+        {
+            <span>
+                <img class="genderIcon" src="~/Content/Image/genderUnknown.png" />
+            </span>
+        }
+        <span>@Html.DisplayFor(modelItem => item.BirthDate), @Html.DisplayFor(modelItem => item.Age)<br/></span>
 
-            <h4>@Html.DisplayFor(modelItem => item.Identifier)</h4>
-        @Html.DisplayFor(modelItem => item.LastName), @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.MiddleName)<br/>
-        @Html.DisplayFor(modelItem => item.BirthDate)<br/>
-        @Html.DisplayFor(modelItem => item.Gender)
+        <span>@Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.State)</span>
+
     </div>
     <br/>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 col-md-2">
-                @Html.ActionLink("Conditions", "MedicalHistory", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "medicalConditionsButton" })
-            </div>
-            <div class="col-xs-4 col-md-2">
-                @Html.ActionLink("Medications", "Medications", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "medicationsButton" })
-            </div>
-            <div class="col-xs-4 col-md-2">
-                @Html.ActionLink("Allergies", "Allergies", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "allergiesButton" })
-            </div>
 
-            <div class="col-xs-4 col-md-2">
-                @Html.ActionLink("Devices", "Devices", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "devicesButton" })
-            </div>
-            <div class="col-xs-4 col-md-2">
-                @Html.ActionLink("Special Needs", "SpecialNeeds", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "specialNeedsButton" })
-            </div>
-            <div class="col-xs-4 col-md-2">
-                @Html.ActionLink("Contact Info", "ContactInfo", "Patient", new { ID = item.Identifier }, new { @class = "btn btn-default profileButton", id = "callMedicAlert" })
+        <div class="container-fluid buttons">
+            <div class="row fade-in">
+                <div class="col-xs-4 text-center col-md-2">
+                    <a href='@Url.Action("MedicalHistory", "Patient", new { ID = item.Identifier })' class="btn btn-default profileButton" id="medicalConditionsButton">
+                        Conditions <span class="notificationInfo">@Html.DisplayFor(modelItem => item.ConditionsCount)</span>
+                    </a>
+                </div>
+                <div class="col-xs-4 text-center col-md-2">
+                    <a href='@Url.Action("Medications", "Patient", new { ID = item.Identifier })' class="btn btn-default profileButton" id="medicationsButton">
+                        Medications <span class="notificationInfo">@Html.DisplayFor(modelItem => item.MedicationCount)</span>
+                    </a>
+                </div>
+                <div class="col-xs-4 text-center col-md-2">
+                    <a href='@Url.Action("Allergies", "Patient", new { ID = item.Identifier })' class="btn btn-default profileButton" id="allergiesButton">
+                        Allergies <span class="notificationInfo">@Html.DisplayFor(modelItem => item.AllergiesCount)</span>
+                    </a>
+                </div>
+
+                <div class="col-xs-4 text-center col-md-2">
+                    <a href='@Url.Action("Devices", "Patient", new { ID = item.Identifier })' class="btn btn-default profileButton" id="devicesButton">
+                        Devices <span class="notificationInfo">@Html.DisplayFor(modelItem => item.DevicesCount)</span>
+                    </a>
+                </div>
+                <div class="col-xs-4 text-center col-md-2">
+                    <a href='@Url.Action("SpecialNeeds", "Patient", new { ID = item.Identifier })' class="btn btn-default profileButton" id="specialNeedsButton">
+                        Additonal Info
+                    </a>
+                </div>
+                <div class="col-xs-4 text-center col-md-2">
+                    <a href='@Url.Action("ContactInfo", "Patient", new { ID = item.Identifier })' class="btn btn-default profileButton" id="emergencyContactButton">
+                        Emergency Contacts
+                    </a>
+                </div>
             </div>
         </div>
-        </div>
 
-
-
-
-
-
-    }
+        }
 </body>

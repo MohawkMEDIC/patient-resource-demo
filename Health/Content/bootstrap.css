@@ -757,8 +757,8 @@ pre code {
 }
 
 .container {
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 0px;
+  padding-left: 0px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -5439,21 +5439,21 @@ a.list-group-item:focus {
 }
 
 .panel-default {
-  border-color: #dddddd;
+  border-color: #C00000;
 }
 
 .panel-default > .panel-heading {
-  color: #333333;
-  background-color: #f5f5f5;
-  border-color: #dddddd;
+  color: white;
+  background-color: #C00000;
+  border-color: #C00000;
 }
 
 .panel-default > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #dddddd;
+  border-top-color: #C00000;
 }
 
 .panel-default > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: #dddddd;
+  border-bottom-color: #c00000;
 }
 
 .panel-primary {
